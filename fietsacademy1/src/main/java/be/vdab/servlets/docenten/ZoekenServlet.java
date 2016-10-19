@@ -15,6 +15,7 @@ import be.vdab.services.DocentService;
 public class ZoekenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/docenten/zoeken.jsp";
+
 	private final transient DocentService docentService = new DocentService();
 
 	public static final String REDIRECT_URL = "%s/docenten/zoeken.htm?id=%d";
