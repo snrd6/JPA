@@ -48,14 +48,10 @@ public class DocentService extends AbstractService {
 
 	public void opslag(long id, BigDecimal percentage) {
 		beginTransaction();
-		docentRepository.read(id).opslag(percentage);
-		try{
+		docentRepository.readWithLock(id).opslag(percentage);
+		
 		commit();
-		}catch(RollbackException ex){
-			if (ex.getCause() instanceof OptimisticLockException) { 
-				throw new RecordAangepastException();
-		}
-		}
+
 	}
 
 	
