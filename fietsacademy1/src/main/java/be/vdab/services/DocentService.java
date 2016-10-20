@@ -8,7 +8,7 @@ import javax.persistence.RollbackException;
 
 import be.vdab.entities.Docent;
 import be.vdab.exceptions.DocentBestaatAlException;
-import be.vdab.exceptions.RecordAangepastException;
+
 import be.vdab.repositories.CampusRepository;
 import be.vdab.repositories.DocentRepository;
 import be.vdab.valueobjects.AantalDocentenPerWedde;
