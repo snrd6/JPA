@@ -6,7 +6,7 @@
 <!doctype html>
 <html lang='nl'>
 <v:head title='Toys For Boys' />
-<v:header />
+<v:menu />
 <c:if test="${not empty shippedOrdersIds }">
 	<div class="page-header">
 		<div class="panel panel-success">
@@ -45,7 +45,7 @@
 				</tr>
 				<c:forEach items='${noStockUnshippedOrders}'
 					var='noStockUnshippedOrder' varStatus="status">
-					<c:url value='/orderdetail.htm' var='orderDetailURL'>
+					<c:url value='/orders/orderdetail.htm' var='orderDetailURL'>
 						<c:param name='id' value="${noStockUnshippedOrder.id}" />
 					</c:url>
 					<tr>
@@ -86,7 +86,7 @@
 				<th class="col-md-1 text-center">Ship</th>
 			</tr>
 			<c:forEach items='${unshippedorders}' var='unshippedorder'>
-				<c:url value='/orderdetail.htm' var='orderDetailURL'>
+				<c:url value='/orders/orderdetail.htm' var='orderDetailURL'>
 					<c:param name='id' value="${unshippedorder.id}" />
 				</c:url>
 				<tr>
@@ -99,9 +99,8 @@
 							dateStyle='short' /></td>
 					<td class="col-md-2">${unshippedorder.customer.name}</td>
 					<td>${unshippedorder.comments}</td>
-					<td class="col-md-2"><img
-						src="images/${unshippedorder.status}.png">&nbsp;
-						${fn:toUpperCase(fn:substring(unshippedorder.status, 0, 1))}${fn:toLowerCase(fn:substring(unshippedorder.status, 1, -1))}
+					<td class="col-md-2"><img src='<c:url value="/images/${unshippedorder.status}.png"/>'alt='icoontjes'/>&nbsp;
+						${unshippedorder.status}
 					</td>
 					<td class="col-md-1 text-center"><input type='checkbox'
 						name='ship' value='${unshippedorder.id}'></td>
@@ -111,19 +110,19 @@
 		<input type="submit" value="Set as shipped"
 			class="btn btn-primary btn-block" id='submit' disabled>
 	</form>
-	<ul class="pagination">
+	<ul >
 		<c:if test='${vanafRij != 0}'>
 			<c:url value='' var='vorigePaginaURL'>
 				<c:param name='vanafRij' value='${vanafRij - aantalRijen}' />
 			</c:url>
 			<li><a href="<c:out value='${vorigePaginaURL}'/>"
-				title='Previous'>Previous</a></li>
+				title='Vorige Pagina' class='pagineren'>&#8656;</a></li>
 		</c:if>
 		<c:if test='${empty laatstePagina}'>
 			<c:url value='' var='volgendePaginaURL'>
 				<c:param name='vanafRij' value='${vanafRij + aantalRijen}' />
 			</c:url>
-			<li><a href="<c:out value='${volgendePaginaURL}'/>" title='Next'>Next</a></li>
+			<li><a href="<c:out value='${volgendePaginaURL}'/>" title='volgende pagina' class='pagineren'>&#8658; </a></li>
 		</c:if>
 	</ul>
 </c:if>
@@ -143,4 +142,3 @@
 		document.getElementById('submit').disabled = true;
 	};
 </script>
-<v:footer />

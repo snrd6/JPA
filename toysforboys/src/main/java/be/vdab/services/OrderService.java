@@ -2,8 +2,11 @@ package be.vdab.services;
 
 import java.util.List;
 
+import javax.persistence.OptimisticLockException;
+import javax.persistence.RollbackException;
+
 import be.vdab.entities.Order;
-import be.vdab.exceptions.UnshippedException;
+import be.vdab.exceptions.RecordAangepastException;
 import be.vdab.repositories.OrderRepository;
 
 public class OrderService extends AbstractService {
@@ -14,10 +17,23 @@ public class OrderService extends AbstractService {
 		return orderRepository.findAll(vanafRij, aantalRijen);
 	}
 
-	public Order read(long id) {
+	public  Order read(long id) {
 		return orderRepository.read(id);
 	}
 
+	public boolean setAsShipped(long id) {
+		beginTransaction();
+		orderRepository.read(id).ship();
+		try {
+			
+			commit();
+			return true;
+		} catch (RollbackException ex) {
+			if(ex.getCause() instanceof OptimisticLockException)
+				throw new RecordAangepastException();
+			return false;
+		}
+	}
 	
 
 	

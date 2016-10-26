@@ -11,6 +11,9 @@ import be.vdab.valueobjects.Adres;
 @Table(name="customers")
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	
+	
 //variabelen
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,6 +24,9 @@ public class Customer implements Serializable {
 
 	@Embedded
 	private Adres adres;
+	
+	@Version
+	private long version;
 
 
 	//constructor
@@ -45,9 +51,19 @@ public class Customer implements Serializable {
 		return adres;
 	}
 	
+	public void setId(long id) {
+		this.id = id;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setAdres(Adres adres) {
+		this.adres = adres;
+	}
 	
 	
 	//hash & equals
+	
 	
 	@Override
 	public int hashCode() {

@@ -1,16 +1,19 @@
-package be.vdab.entities;
+package be.vdab.valueobjects;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
 
 
-
-//entity gegenereerd
 
 @Entity
 @Table(name="countries")
 public class Country implements Serializable {
-	
 	//variabelen
 	private static final long serialVersionUID = 1L;
 
@@ -20,6 +23,8 @@ public class Country implements Serializable {
 
 	private String name;
 
+	@Version
+	private long version;
 	
 	//constructors
 	protected Country() {
@@ -74,9 +79,4 @@ public class Country implements Serializable {
 		return "Country [id=" + id + ", name=" + name + "]";
 	}
 	
-	
-	
-
-
-
 }

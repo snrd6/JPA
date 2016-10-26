@@ -1,8 +1,12 @@
+audio { 
+   display:none;
+}
 body {
 	background-color: #000000;
 	font-family: rockwell;
 	color: white;
 }
+
 
 nav {
 	background: #F5F5F5;
@@ -57,6 +61,7 @@ h1 {
 table,th,td {
 	border: 1px solid silver;
 	border-collapse: collapse;
+	color:black;
 }
 
 thead tr,tfoot tr {
@@ -67,6 +72,7 @@ thead tr,tfoot tr {
 td {
 	padding-left: 0.2em;
 	padding-right: 0.2em;
+	color:black;
 }
 
 tbody tr:nth-child(even) {
@@ -98,6 +104,10 @@ input:focus,textarea:focus,select:focus {
 
 input[type='checkbox'],input[type='radio'] {
 	display: inline;
+}
+
+&rarr; {
+	color:white;
 }
 
 label span {
@@ -154,10 +164,11 @@ dt {
 }
 
 dd {
-	margin-left: 15em;
+	
 	font-weight: bold;
 }
 
 .pagineren {
 	font-size: x-large;
+	color:white;
 }

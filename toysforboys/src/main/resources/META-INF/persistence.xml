@@ -12,10 +12,11 @@ java:/comp/env/jdbc/toysforboys
 
 <class>be.vdab.entities.Order</class>
 <class>be.vdab.entities.Product</class>
-<class>be.vdab.entities.Country</class>
 <class>be.vdab.entities.Customer</class>
-<class>be.vdab.entities.Productline</class>
 <class>be.vdab.valueobjects.Adres</class>
+<class>be.vdab.valueobjects.Country</class>
+<class>be.vdab.valueobjects.Orderdetail</class>
+<class>be.vdab.valueobjects.Productline</class>
 <properties>
 <property name='hibernate.show_sql' value='true'/> 
 <property name='hibernate.format_sql' value='true'/> 

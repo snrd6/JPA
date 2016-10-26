@@ -11,5 +11,11 @@
 		<h2>Speelgoed voor mensen van het superieure geslacht</h2>
 		<img src='<c:url value="/images/banner.png"/>' alt='autos' id='logo' />
 	</header>
+	<audio autoplay='autoplay'>
+  
+  <source src="RACECAR.mp3" type="audio/mpeg" />
+
+</audio>
+
 </body>
 </html>

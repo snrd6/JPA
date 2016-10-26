@@ -9,7 +9,7 @@
 			</ul></li>
 		<li><a href="#">Contact</a>
 			<ul>
-				<li><a href="<c:url value='/gegevens/contact.htm'/>">Contactinformatie</a></li>
+				<li><a href="<c:url value='/contact.htm'/>">Contactinformatie</a></li>
 			</ul></li>
 		
 	</ul>

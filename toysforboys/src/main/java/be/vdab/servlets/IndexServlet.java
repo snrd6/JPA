@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/index.htm")
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/WEB-INF/JSP/index.jsp";
+	private static final String VIEW = "/WEB-INF/JSP/orders/index.jsp";
 	
 	
 	

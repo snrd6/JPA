@@ -7,18 +7,20 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import be.vdab.entities.Country;
-import be.vdab.entities.Customer;
+
+
+
 
 @Embeddable
 public class Adres implements Serializable{
 	//variabelen
 	private static final long serialVersionUID = 1L;
-	private String StreetAndNumber;
+	private String streetAndNumber;
 	private String city;
 	private String state;
 	private int postalCode;
 	
+
 	//associaties en relaties
 	
 	
@@ -29,18 +31,59 @@ public class Adres implements Serializable{
 	//constructor
 	public Adres(String streetAndNumber, String city, String state, int postalCode) {
 	
-		this.StreetAndNumber = streetAndNumber;
+		this.streetAndNumber = streetAndNumber;
 		this.city = city;
 		this.state = state;
 		this.postalCode = postalCode;
-		this.country=country;
+		
 		
 	}
 	
 	protected Adres(){}
 
 
+//getters
+	public String getStreetAndNumber() {
+		return streetAndNumber;
+	}
 
+	public void setStreetAndNumber(String streetAndNumber) {
+		this.streetAndNumber = streetAndNumber;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(int postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	
 	
 	
 	//hash & equals
@@ -49,7 +92,7 @@ public class Adres implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((StreetAndNumber == null) ? 0 : StreetAndNumber.hashCode());
+		result = prime * result + ((streetAndNumber == null) ? 0 : streetAndNumber.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + postalCode;
@@ -57,6 +100,7 @@ public class Adres implements Serializable{
 		return result;
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,10 +110,10 @@ public class Adres implements Serializable{
 		if (!(obj instanceof Adres))
 			return false;
 		Adres other = (Adres) obj;
-		if (StreetAndNumber == null) {
-			if (other.StreetAndNumber != null)
+		if (streetAndNumber == null) {
+			if (other.streetAndNumber != null)
 				return false;
-		} else if (!StreetAndNumber.equals(other.StreetAndNumber))
+		} else if (!streetAndNumber.equals(other.streetAndNumber))
 			return false;
 		if (city == null) {
 			if (other.city != null)
@@ -98,7 +142,7 @@ public class Adres implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Adres [StreetAndNumber=" + StreetAndNumber + ", city=" + city + ", state=" + state + ", postalCode="
+		return "Adres [streetAndNumber=" + streetAndNumber + ", city=" + city + ", state=" + state + ", postalCode="
 				+ postalCode + ", country=" + country + "]";
 	}
 	
