@@ -50,7 +50,7 @@ public class Customer implements Serializable {
 	public Adres getAdres() {
 		return adres;
 	}
-	
+	//setters
 	public void setId(long id) {
 		this.id = id;
 	}

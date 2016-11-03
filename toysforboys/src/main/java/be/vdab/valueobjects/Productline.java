@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import be.vdab.util.Invoercontrole;
+
 //variabelen
 	@Entity
 	@Table(name = "productlines")
@@ -25,6 +25,8 @@ import be.vdab.util.Invoercontrole;
 		
 		@Version
 		private long version;
+		
+		
 		// constructor
 		protected Productline() {
 
@@ -48,12 +50,12 @@ import be.vdab.util.Invoercontrole;
 			return description;
 		}
 
-		private void setName(String name) throws IllegalArgumentException {
-			this.name = Invoercontrole.noEmptyOrNullString(name, "productline name cannot be empty or null");
+		private void setName(String name)  {
+			this.name = name;
 		}
 
 		private void setDescription(String description) {
-			this.description = description; // geen invoercontrole: vrij veld
+			this.description = description; 
 		}
 
 		

@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,16 +28,17 @@ import be.vdab.exceptions.UnshippedException;
 import be.vdab.valueobjects.Orderdetail;
 import be.vdab.enums.Status;
 
-
+//entity gegenereerd
 @Entity
 @Table(name = "orders")
+@NamedEntityGraph(name = "Order.metCustomer", attributeNodes = @NamedAttributeNode("customer"))	
 public class Order implements Serializable{
 	
 	//variabelen
 	
 	
 	private static final long serialVersionUID = 1L;
-	
+	public static final String MET_CUSTOMER="Order.metCustomer";
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -97,7 +100,7 @@ public class Order implements Serializable{
 	public Customer getCustomer() {
 		return customer;
 	}
-
+//setters
 	
 	public void setId(long id) {
 		this.id = id;

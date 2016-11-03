@@ -31,10 +31,10 @@ public class OrderDetailServlet extends HttpServlet {
 				Order order = orderService.read(selectedOrder);
 				request.setAttribute("order", order);
 			} catch (NumberFormatException ex) {
-				request.setAttribute("fout", "Order id is not correct");
+				request.setAttribute("fout", "Order id is niet correct");
 			}
 		} else {
-			request.setAttribute("fout", "No order selected");
+			request.setAttribute("fout", "Geen order geselecteerd");
 		}
 		
 		request.getRequestDispatcher(VIEW).forward(request, response);

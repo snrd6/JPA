@@ -42,7 +42,7 @@ public class Adres implements Serializable{
 	protected Adres(){}
 
 
-//getters
+//getters en setters
 	public String getStreetAndNumber() {
 		return streetAndNumber;
 	}

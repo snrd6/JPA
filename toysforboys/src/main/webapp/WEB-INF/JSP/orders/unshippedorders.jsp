@@ -8,12 +8,12 @@
 <v:head title='Toys For Boys' />
 <v:menu />
 <c:if test="${not empty shippedOrdersIds }">
-	<div class="page-header">
-		<div class="panel panel-success">
-			<div class="panel-heading">
+	<div >
+		<div >
+			<div >
 				<h2>Shipping success</h2>
 			</div>
-			<div class="panel-body">
+			<div >
 				<p>
 					Shipping completed for ${fn:length(shippedOrdersIds) > 1 ? "orders " : "order"}
 					<c:forEach items='${shippedOrdersIds}' var='shippedOrdersId'
@@ -26,22 +26,22 @@
 	</div>
 </c:if>
 <c:if test="${not empty noStockUnshippedOrders }">
-	<div class="page-header">
-		<div class="panel panel-danger">
-			<div class="panel-heading">
+	<div >
+		<div >
+			<div >
 				<h2>Not enough Stock</h2>
 			</div>
-			<div class="panel-body">
+			<div >
 				<p>Could not complete shipping for following orders:</p>
 			</div>
-			<table class="table table-striped">
+			<table >
 				<tr>
-					<th class="col-md-1 text-center">ID</th>
-					<th class="col-md-1">Ordered</th>
-					<th class="col-md-1">Required</th>
-					<th class="col-md-2">Customer</th>
+					<th >ID</th>
+					<th >Ordered</th>
+					<th >Required</th>
+					<th >Customer</th>
 					<th>Comments</th>
-					<th class="col-md-2">Status</th>
+					<th >Status</th>
 				</tr>
 				<c:forEach items='${noStockUnshippedOrders}'
 					var='noStockUnshippedOrder' varStatus="status">
@@ -49,18 +49,18 @@
 						<c:param name='id' value="${noStockUnshippedOrder.id}" />
 					</c:url>
 					<tr>
-						<td class="col-md-1 text-center"><a class="btn btn-danger"
-							href="<c:out value='${orderDetailURL}'/>" role="button">${noStockUnshippedOrder.id}</a></td>
-						<td class="col-md-1"><fmt:formatDate
+						<td>
+						<a href="<c:out value='${orderDetailURL}'/>" role="button">${noStockUnshippedOrder.id}</a></td>
+						<td><fmt:formatDate
 								value='${noStockUnshippedOrder.orderDate}' type='date'
 								dateStyle='short' /></td>
-						<td class="col-md-1"><fmt:formatDate
+						<td><fmt:formatDate
 								value='${noStockUnshippedOrder.requiredDate}' type='date'
 								dateStyle='short' /></td>
-						<td class="col-md-2">${noStockUnshippedOrder.customer.name}</td>
+						<td >${noStockUnshippedOrder.customer.name}</td>
 						<td>${noStockUnshippedOrder.comments}</td>
-						<td class="col-md-2"><img
-							src="images/${noStockUnshippedOrder.status}.png">&nbsp;
+						<td>
+						<img src="images/${noStockUnshippedOrder.status}.png">&nbsp;
 							${fn:toUpperCase(fn:substring(noStockUnshippedOrder.status, 0, 1))}${fn:toLowerCase(fn:substring(noStockUnshippedOrder.status, 1, -1))}
 						</td>
 					</tr>
@@ -69,40 +69,40 @@
 		</div>
 	</div>
 </c:if>
-<div class="page-header">
+<div >
 	<h1>Unshipped orders</h1>
 </div>
 
 <c:if test="${not empty unshippedorders}">
 	<form action="" method="post" id="setAsShippedForm">
-		<table class="table table-striped">
+		<table >
 			<tr>
-				<th class="col-md-1 text-center">ID</th>
-				<th class="col-md-1">Ordered</th>
-				<th class="col-md-1">Required</th>
-				<th class="col-md-2">Customer</th>
+				<th>ID</th>
+				<th>Ordered</th>
+				<th>Required</th>
+				<th>Customer</th>
 				<th>Comments</th>
-				<th class="col-md-2">Status</th>
-				<th class="col-md-1 text-center">Ship</th>
+				<th>Status</th>
+				<th>Ship</th>
 			</tr>
 			<c:forEach items='${unshippedorders}' var='unshippedorder'>
 				<c:url value='/orders/orderdetail.htm' var='orderDetailURL'>
 					<c:param name='id' value="${unshippedorder.id}" />
 				</c:url>
 				<tr>
-					<td class="col-md-1 text-center"><a class="btn btn-info"
+					<td><a class="btn btn-info"
 						href="<c:out value='${orderDetailURL}'/>" role="button">${unshippedorder.id}</a></td>
-					<td class="col-md-1"><fmt:formatDate
+					<td><fmt:formatDate
 							value='${unshippedorder.orderDate}' type='date' dateStyle='short' /></td>
-					<td class="col-md-1"><fmt:formatDate
+					<td ><fmt:formatDate
 							value='${unshippedorder.requiredDate}' type='date'
 							dateStyle='short' /></td>
-					<td class="col-md-2">${unshippedorder.customer.name}</td>
+					<td>${unshippedorder.customer.name}</td>
 					<td>${unshippedorder.comments}</td>
-					<td class="col-md-2"><img src='<c:url value="/images/${unshippedorder.status}.png"/>'alt='icoontjes'/>&nbsp;
+					<td><img src='<c:url value="/images/${unshippedorder.status}.png"/>'alt='icoontjes'/>&nbsp;
 						${unshippedorder.status}
 					</td>
-					<td class="col-md-1 text-center"><input type='checkbox'
+					<td><input type='checkbox'
 						name='ship' value='${unshippedorder.id}'></td>
 				</tr>
 			</c:forEach>

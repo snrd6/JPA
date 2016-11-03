@@ -244,7 +244,7 @@ public class Product implements Serializable {
 				logger.log(Level.WARNING, "Corrupted quantityInOrder for " + this.getName());
 			}
 		} else {
-			throw new UnshippedException("Shipping failed for " + this.toString());
+			throw new UnshippedException();
 		}
 	}
 	

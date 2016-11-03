@@ -10,7 +10,9 @@ public class OrderRepository extends AbstractRepository {
 
 	public List<Order> findAll(int vanafRij, int aantalRijen) {
 		return getEntityManager().createNamedQuery("Order.findAll", Order.class).setFirstResult(vanafRij)
-				.setMaxResults(aantalRijen).getResultList();
+				.setMaxResults(aantalRijen)
+				.setHint("javax.persistence.loadgraph", getEntityManager().createEntityGraph(Order.MET_CUSTOMER))
+				.getResultList();
 	}
 
 	public Order read(long id) {

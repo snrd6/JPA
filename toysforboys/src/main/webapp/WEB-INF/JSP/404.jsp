@@ -13,7 +13,7 @@
 
 	
 	<h1>Pagina werd niet gevonden</h1>
-	<img src='/images/error.png' alt='fout'>
+	<img src='images/error.png' alt='fout'>
 	<p>De pagina die u wenst te bezoeken bestaat niet op onze website.</p>
 	
 </body>

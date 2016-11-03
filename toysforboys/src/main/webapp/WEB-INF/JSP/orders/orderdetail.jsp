@@ -9,16 +9,16 @@
 <v:head title='Orderdetail ${order.id}' />
 
 <c:if test="${not empty fout}">
-	<div class="page-header">
-		<div class="alert alert-danger" role="alert">
-			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			<span class="sr-only"><strong>Error:</strong></span>
+	<div >
+		<div  role="alert">
+			<span  aria-hidden="true"></span>
+			<span ><strong>Error:</strong></span>
 			<strong>WARNING!</strong> ${fout}.
 		</div>
 	</div>
 </c:if>
 <c:if test="${not empty order}">
-	<div class="page-header">
+	<div >
 		<h1>Order ${order.id}</h1>
 	</div>
 	<dl>
@@ -43,37 +43,37 @@
 		<br>
 		<dt>Details:</dt>
 		<dd>
-			<table class="table table-striped">
+			<table >
 				<tr>
-					<th class="text-center">Product</th>
-					<th class="col-md-2">Price each</th>
-					<th class="col-md-2">Quantity</th>
-					<th class="col-md-2">Value</th>
-					<th class="text-center col-md-1">Deliverable</th>
+					<th >Product</th>
+					<th >Price each</th>
+					<th >Quantity</th>
+					<th >Value</th>
+					<th >Deliverable</th>
 				</tr>
 				<c:forEach items='${order.orderdetails}' var='orderdetail'>
 					<tr>
 						<td>${orderdetail.product.name}</td>
-						<td class="col-md-2"><fmt:formatNumber value='${orderdetail.priceEach}'/></td>
-						<td class="col-md-2"><fmt:formatNumber value='${orderdetail.quantityOrdered}'/></td>
-						<td class="col-md-2"><fmt:formatNumber value='${orderdetail.totalValue}'/></td>
-						<td class="text-center col-md-1"><c:choose>
+						<td ><fmt:formatNumber value='${orderdetail.priceEach}'/></td>
+						<td ><fmt:formatNumber value='${orderdetail.quantityOrdered}'/></td>
+						<td ><fmt:formatNumber value='${orderdetail.totalValue}'/></td>
+						<td ><c:choose>
 								<c:when
 									test="${orderdetail.quantityOrdered <= orderdetail.product.quantityInStock}">
-									<span class="glyphicon glyphicon-ok"></span>
+									<span ></span>
 								</c:when>
 								<c:otherwise>
-									<span class="glyphicon glyphicon-remove"></span>
+									<span ></span>
 								</c:otherwise>
 							</c:choose></td>
 					</tr>
 				</c:forEach>
-				<tr class="info">
+				<tr >
 					<th>Total Amount:</th>
-					<th class="col-md-2"></th>
-					<th class="col-md-2"></th>
-					<th class="col-md-2 "><fmt:formatNumber value='${order.totalValue}'/></th>
-					<th class="text-center col-md-1"></th>
+					<th ></th>
+					<th ></th>
+					<th ><fmt:formatNumber value='${order.totalValue}'/></th>
+					<th ></th>
 				</tr>
 			</table>
 		</dd>

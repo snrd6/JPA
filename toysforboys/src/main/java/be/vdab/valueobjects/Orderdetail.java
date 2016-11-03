@@ -2,14 +2,14 @@ package be.vdab.valueobjects;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
+
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import be.vdab.entities.Product;
-import be.vdab.util.Invoercontrole;
+
 
 @Embeddable
 public class Orderdetail implements Serializable {
@@ -58,17 +58,17 @@ public class Orderdetail implements Serializable {
 		return priceEach.multiply(BigDecimal.valueOf(quantityOrdered));
 	}
 
-	public void setQuantityOrdered(long quantityOrdered) throws IllegalArgumentException {
-		this.quantityOrdered = Invoercontrole.positiveLong(quantityOrdered, "quantityOrdered cannot be negative");
+	public void setQuantityOrdered(long quantityOrdered)  {
+		this.quantityOrdered = quantityOrdered;
 		}
 	
 
-	public void setPriceEach(BigDecimal priceEach) throws IllegalArgumentException {
-		this.priceEach = Invoercontrole.positiveBigDecimal(priceEach, "priceEach cannot be negative");
+	public void setPriceEach(BigDecimal priceEach)  {
+		this.priceEach = priceEach;
 	}
 
-	public void setProduct(Product product) throws NullPointerException {
-		this.product = Objects.requireNonNull(product, "product cannot be null");
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	
