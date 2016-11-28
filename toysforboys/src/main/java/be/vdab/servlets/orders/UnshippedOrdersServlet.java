@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import be.vdab.entities.Order;
+import be.vdab.exceptions.UnshippedException;
 import be.vdab.services.OrderService;
 
 
@@ -74,7 +75,7 @@ public class UnshippedOrdersServlet extends HttpServlet {
 						}else{
 							shippedOrders.add(id);
 						}
-					} catch (NumberFormatException e) {
+					} catch (UnshippedException ex) {
 					
 					}
 				}
