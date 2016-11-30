@@ -26,7 +26,6 @@ public class BoekingServlet extends HttpServlet
 	private final transient MandjeDAO mandjeDAO=new MandjeDAO();
 	
 	@Override
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();

@@ -46,57 +46,67 @@ public class NieuweKlantServlet extends HttpServlet
 		
 		Map<String, String>fouten = new LinkedHashMap<>();
 		
-		if(request.getParameter("voornaam").isEmpty())
+		String voornaam = request.getParameter("voornaam");
+		if( voornaam==null||voornaam.trim().isEmpty())
 		{
 			fouten.put("voornaam", "Voornaam niet ingevuld");
 		}
 		
-		if(request.getParameter("familienaam").isEmpty())
+		String familienaam=request.getParameter("familienaam");
+		if(familienaam==null||familienaam.trim().isEmpty())
 		{
 			fouten.put("familienaam", "Familienaam niet ingevuld");
 		}
 		
-		if(request.getParameter("straat").isEmpty())
+		String straat=request.getParameter("straat");
+		if(straat==null||straat.trim().isEmpty())
 		{
 			fouten.put("straat", "straat niet ingevuld");
 		}
 		
-		if(request.getParameter("huisnr").isEmpty())
+		String huisnr=request.getParameter("huisnr");
+		if(huisnr==null||huisnr.trim().isEmpty())
 		{
 			fouten.put("huisnr", "Huisnr. niet ingevuld");
 		}
 		
-		if(request.getParameter("postcode").isEmpty())
+		String postcode=request.getParameter("postcode");
+		if(postcode==null||postcode.trim().isEmpty())
 		{
 			fouten.put("postcode", "Postcode niet ingevuld");
 		}
 		
-		if(request.getParameter("gemeente").isEmpty())
+		String gemeente=request	.getParameter("gemeente");
+		if(gemeente==null||gemeente.trim().isEmpty())
 		{
 			fouten.put("gemeente", "Gemeente niet ingevuld");
 		}
 		
-		if(request.getParameter("gebruikersnaam").isEmpty())
+		String gebruikersnaam=request.getParameter("gebruikersnaam");
+		if(gebruikersnaam==null||gebruikersnaam.trim().isEmpty())
 		{
 			fouten.put("gebruikersnaam", "Gebruikersnaam niet ingevuld");
 		}
 		
-		if(request.getParameter("paswoord").isEmpty())
+		String paswoord=request.getParameter("paswoord");
+		if(paswoord==null||paswoord.trim().isEmpty())
 		{
 			fouten.put("paswoord", "Paswoord niet ingevuld");
 		}
 		
-		if(request.getParameter("herhaalpaswoord").isEmpty())
+		String herhaalpaswoord=request.getParameter("herhaalpaswoord").trim();
+		if(herhaalpaswoord==null||herhaalpaswoord.trim().isEmpty())
 		{
 			fouten.put("herhaalpaswoord", "Herhaal paswoord niet ingevuld");
 		}
+		
 		
 		if(! request.getParameter("paswoord").equals(request.getParameter("herhaalpaswoord")))
 		{
 			fouten.put("paswoordMatch", "Herhaal paswoord is niet gelijk met paswoord");
 		}
 		
-		if(! request.getParameter("gebruikersnaam").isEmpty() && new KlantDAO().checkGebruikersnaamUniciteit(request.getParameter("gebruikersnaam")))
+		if(! request.getParameter("gebruikersnaam").isEmpty() && new KlantDAO().checkGebruikersnaamUniciteit(request.getParameter("gebruikersnaam"),request.getParameter("paswoord")))
 		{
 			fouten.put("gebruikersnaamIngebruik", "Gebruikersnaam is reeds in gebruik");
 		}
@@ -109,16 +119,9 @@ public class NieuweKlantServlet extends HttpServlet
 		}
 		else
 		{
-			String voornaam = request.getParameter("voornaam");
-			String familienaam = request.getParameter("familienaam");
-			String straat = request.getParameter("straat");
-			String huisNr = request.getParameter("huisnr");
-			String postCode = request.getParameter("postcode");
-			String gemeente = request.getParameter("gemeente");
-			String gebruikersnaam = request.getParameter("gebruikersnaam");
-			String paswoord = request.getParameter("paswoord");
 			
-			klant = new Klant(voornaam, familienaam, straat, huisNr, postCode, gemeente, gebruikersnaam, paswoord);
+			
+			klant = new Klant(voornaam, familienaam, straat, huisnr, postcode, gemeente, gebruikersnaam, paswoord);
 			new KlantDAO().createKlant(klant);
 			session.setAttribute("klant", klant);
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + REDIRECT_URL));

@@ -72,7 +72,7 @@
 			<br></br>
 				<br></br>
 	<div id="bottom">
-	<img src="images/${genre}.jpg;.JPG;.jpeg" alt="${genre}">
+	
 	</div >
 </body>
 

@@ -62,8 +62,8 @@ public class VoorstellingenDAO extends AbstractDAO
 			{
 				if(resultSet.next())
 				{
-					voorstelling = new Voorstelling(resultSet.getInt("id"), resultSet.getString("titel"), resultSet.getString("uitvoerders"),
-					resultSet.getTimestamp("datum"), resultSet.getInt("genreid"), resultSet.getBigDecimal("prijs"), resultSet.getInt("vrijeplaatsen"));
+					voorstelling = new Voorstelling(resultSet.getLong("id"), resultSet.getString("titel"), resultSet.getString("uitvoerders"),
+					resultSet.getTimestamp("datum"), resultSet.getLong("genreid"), resultSet.getBigDecimal("prijs"), resultSet.getInt("vrijeplaatsen"));
 				}
 			}
 		}

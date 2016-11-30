@@ -35,23 +35,25 @@ dt {
 dd {
 	font-weight: bold;
 }
-table.center{
-	align:center;
+table{
+	width:100%;
 }
 
 table tr.even{
 	background-color: #c0c0c0;
-	font-size: 0.85em;
+	font-size: 1em;
 	padding-top:0.5em;
 	padding-bottom:0.5em;
+	color:black;
 }
 
 
 table tr.oneven {
 	background-color: #c5e4e4;
-	font-size: 0.85em;
+	font-size: 1em;
 	padding-top:0.5em;
 	padding-bottom:0.5em;
+	color:black;
 }
 
 label span, .fout {

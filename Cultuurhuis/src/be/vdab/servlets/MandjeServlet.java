@@ -24,7 +24,6 @@ public class MandjeServlet extends HttpServlet
 	private static final String REDIRECT_URL = "/mandje.htm";
 	
 	@Override
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();

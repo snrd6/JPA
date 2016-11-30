@@ -11,7 +11,7 @@ public class ReservatiesDAO extends AbstractDAO
 {
 	private static final String SELECT_VRIJE_PLAATSEN_SQL = "select vrijeplaatsen from voorstellingen where id = ?";
 	private static final String CREATE_RESERVATIE_SQL = "insert into reservaties (klantid, voorstellingsid, plaatsen) values(?, ?, ?)";
-	private static final String REDUCE_PLAATSEN_SQL = "update voorstellingen set vrijeplaatsen = ? where id = ?";
+	private static final String REDUCE_PLAATSEN_SQL = "update voorstellingen set vrijeplaatsen =vrijeplaatsen- ? where id = ?";
 	private final static Logger logger=Logger.getLogger(ReservatiesDAO.class.getName());
 	
 	
