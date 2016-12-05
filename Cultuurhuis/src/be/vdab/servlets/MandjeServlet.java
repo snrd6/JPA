@@ -61,11 +61,11 @@ public class MandjeServlet extends HttpServlet
 		{
 			
 			
-			Map<Integer, Integer> mandje = (Map<Integer, Integer>)session.getAttribute("mandje");
+			Map<Long, Integer> mandje = (Map<Long, Integer>)session.getAttribute("mandje");
 			
 			for(String id : request.getParameterValues("id"))
 			{
-				mandje.remove(Integer.parseInt(id));
+				mandje.remove(Long.parseLong(id));
 			}
 			session.setAttribute("mandje", mandje);
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + REDIRECT_URL));

@@ -6,7 +6,7 @@ public class Klant implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//variabelen
-	private long klantId;	
+	private long   klantId;	
 	private String voornaam;
 	private String familienaam;
 	private String straat;
@@ -30,12 +30,7 @@ public class Klant implements Serializable {
 		this.gebruikersnaam = gebruikersnaam;
 		this.paswoord = paswoord;
 	}
-	public Klant(long klantId,String voornaam, String familienaam, String straat, String huisNr, String postCode,
-			String gemeente, String gebruikersnaam, String paswoord) {
-		
-		
-		this.klantId=klantId;
-	}
+
 
 	//getters
 	public long getKlantId() {
@@ -213,6 +208,13 @@ public class Klant implements Serializable {
 		} else if (!voornaam.equals(other.voornaam))
 			return false;
 		return true;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return  voornaam + " " + familienaam + " " + straat + " "
+				+ huisNr + " " + postCode + " " + gemeente ;
 	}
 	
 

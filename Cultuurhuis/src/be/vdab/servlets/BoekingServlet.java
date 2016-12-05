@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import be.vdab.dao.KlantDAO;
 import be.vdab.dao.MandjeDAO;
 import be.vdab.dao.ReservatiesDAO;
 import be.vdab.entities.Klant;
@@ -24,6 +25,9 @@ public class BoekingServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/boeking.jsp";
 	private final transient MandjeDAO mandjeDAO=new MandjeDAO();
+	private final transient KlantDAO klantDAO=new KlantDAO();
+	
+	
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -36,7 +40,7 @@ public class BoekingServlet extends HttpServlet
 		{
 			@SuppressWarnings("unchecked")
 			Map<Long, Integer> mandje = (Map<Long, Integer>) session.getAttribute("mandje"); 	
-			Klant klant = (Klant)session.getAttribute("klant"); 									
+			Klant klant = klantDAO.findKlant((String) session.getAttribute("klant")); 									
 			long klantnr = klant.getKlantId();
 			
 			for(Map.Entry<Long, Integer> entry : mandje.entrySet())

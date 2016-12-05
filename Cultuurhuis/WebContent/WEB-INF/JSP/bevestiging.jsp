@@ -28,28 +28,28 @@
 	<br>
 	<c:url value="/zoekklant.htm" var="zoekKlantURL"/>
 	
-	<form method="get" action="${zoekKlantURL}" style="text-align:left">
-		<label>Gebruikersnaam:<span class='fout'>${badChars.badCharGn}</span>
-			<input name= "gebruikersnaam" value="${klant.gebruikersnaam}" maxLength="20" size="20" autofocus <c:if test="${ not empty klant.gebruikersnaam}">disabled</c:if>/></label><br/>
-		<label>Paswoord:<span class='fout'>${badChars.badCharPw}</span>
-			<input type="password" name= "paswoord" maxLength="15" size="15" <c:if test="${not empty klant.gebruikersnaam}">disabled</c:if>/><br/>
-			<input type="submit" value="Zoek me op" <c:if test="${not empty klant.gebruikersnaam}">disabled</c:if>/></label><br/>
+	<form method="post" action="${zoekKlantURL}" style="text-align:left">
+		<label>Gebruikersnaam:<span class='fout'></span>
+			<input name= "gebruikersnaam" value="${klant}" maxLength="20" size="20" autofocus <c:if test="${ not empty klant}">disabled</c:if>/></label><br/>
+		<label>Paswoord:<span class='fout'></span>
+			<input type="password" name= "paswoord" maxLength="15" size="15" <c:if test="${not empty klant}">disabled</c:if>/><br/>
+			<input type="submit" value="Zoek me op" <c:if test="${not empty klant}">disabled</c:if>/></label><br/>
 	</form>
 	
 	<c:url value="/nieuweklant.htm" var="nieuweklantURL"/>
 	
 	<form method="get" action="${nieuweklantURL}">
-		<input type="submit" value="Ik ben nieuw" <c:if test="${not empty klant.gebruikersnaam}">disabled</c:if>/>
+		<input type="submit" value="Ik ben nieuw" <c:if test="${not empty klant}">disabled</c:if>/>
 	</form>
 	
 	<section><span class="fout">${fouten.verkeerd}</span></section>
-	<section class="boldsmall">${klant.voornaam}&nbsp;${klant.familienaam}&nbsp;${klant.straat}&nbsp;${klant.huisNr}&nbsp;${klant.postCode}&nbsp;${klant.gemeente}</section>
+	${klantgegevens} 
 	<h3>Stap 2:Bevestigen</h3>
 	<br>
 	<c:url value="/boeking.htm" var="boekingURL"/>
 	
 	<form method="get" action="${boekingURL}" id="bevestigingForm">
-		<input type="submit" value="Bevestigen" id="bevestigingKnop" <c:if test="${empty klant.gebruikersnaam}">disabled</c:if>/>
+		<input type="submit" value="Bevestigen" id="bevestigingKnop" <c:if test="${empty klant}">disabled</c:if>/>
 	</form>
 	
 	<script>

@@ -22,7 +22,7 @@
 				<li><a href="${indexURL}">Voorstellingen</a></li>
 			<c:url value="/mandje.htm" var="mandjeURL"/>
 				<li><a href="${mandjeURL}">Reservatiemandje</a></li>
-			<c:url value="/bevestiging.htm" var="bevestigingURL"/>
+			<c:url value="/zoekklant.htm" var="bevestigingURL"/>
 				<li><a href="${bevestigingURL}">Bevestiging reservaties</a></li>
 		</ul>
 	</nav>

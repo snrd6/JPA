@@ -25,33 +25,42 @@ public class ZoekKlantServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-
-				
-		request.getRequestDispatcher(VIEW).forward(request, response);
+	HttpSession session=request.getSession();
+	
+	if(session.getAttribute("klant")!=null){
+		String klantgegevens=klantdao.findKlant( (String) session.getAttribute("klant")).toString();
+		
+		if (klantgegevens !=null){
+			request.setAttribute("klantgegevens", klantgegevens);
+		}
+	
+	}
+	request.getRequestDispatcher(VIEW).forward(request, response);
 	}
 	
 	
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-HttpSession session = request.getSession();
+
+		HttpSession session = request.getSession();
 		
 		Map<String,String>fouten = new HashMap<>();
 		
 		
 		String paswoord=request.getParameter("paswoord");
 		String gebruikersnaam=request.getParameter("gebruikersnaam");
-	
+		
 		if( (gebruikersnaam!= null) && (paswoord != null))
 		{
 			if(paswoord.equals(klantdao.getPaswoord(gebruikersnaam))){
-				session.setAttribute("klant", klantdao.findKlant(gebruikersnaam,paswoord));
+				session.setAttribute("klant", gebruikersnaam);
 			}
 		
 			else
 			{
 				fouten.put("verkeerd", "Verkeerde gebruikersnaam of paswoord");
-				request.setAttribute("fouten", fouten);
+				session.setAttribute("fouten", fouten);
 			}
 		}
 		response.sendRedirect(response.encodeRedirectURL(request.getRequestURI()));

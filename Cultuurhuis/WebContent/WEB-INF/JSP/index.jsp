@@ -31,7 +31,7 @@
 		<ul>
 			<c:url value="/mandje.htm" var="mandjeURL"/><li>
 			<a href="${mandjeURL}">Reservatiemandje</a></li>
-			<c:url value="/bevestiging.htm" var="bevestigingURL"/><li>
+			<c:url value="/zoekklant.htm" var="bevestigingURL"/><li>
 			<a href="${bevestigingURL}">Bevestiging reservaties</a><li>
 		</ul>
 	</nav>

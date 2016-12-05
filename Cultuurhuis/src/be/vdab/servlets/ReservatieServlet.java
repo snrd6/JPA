@@ -101,13 +101,12 @@ public class ReservatieServlet extends HttpServlet {
 			if (mandje == null) {
 
 				mandje = new LinkedHashMap<>();
-
-				
+	
 			}
 			
 			mandje.put(voorstellingId, plaatsen);
-			response.sendRedirect(
-					response.encodeRedirectURL(String.format(REDIRECT_URL, request.getContextPath())));
+			session.setAttribute("mandje", mandje);
+			response.sendRedirect(response.encodeRedirectURL(String.format(REDIRECT_URL, request.getContextPath())));
 		}
 	}
 }

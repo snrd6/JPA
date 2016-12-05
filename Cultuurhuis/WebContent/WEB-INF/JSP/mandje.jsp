@@ -23,7 +23,7 @@
 		<ul class="zonderbolletjes">
 			<c:url value="/index.htm" var="indexURL"/>
 				<li><a href="${indexURL}">Voorstellingen</a></li>
-			<c:url value="/bevestiging.htm" var="bevestigingURL"/>
+			<c:url value="/zoekklant.htm" var="bevestigingURL"/>
 				<li><a href="${bevestigingURL}">Bevestiging reservaties</a></li>
 		</ul>
 	</nav>
@@ -66,7 +66,7 @@
 		</script>
 		
 		<h2>Te betalen: &euro;<fmt:formatNumber value='${totaalprijs}' groupingUsed='false' minFractionDigits="2"/> </h2>
-			<img src="images/Money.jpg" alt="Afbeelding geld" class="center">
+			
 			
 	</c:if>
 
