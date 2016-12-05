@@ -27,7 +27,7 @@
 	<h2>Gelukte reserveringen</h2>
 	
 	<c:if test="${not empty mandjeItemsGelukt}">
-		<table class="center">
+		<table >
 			<thead>
 				<tr class="even">
 					<th>Datum</th><th>Titel</th><th>Uitvoerders</th><th>Prijs</th><th>Plaatsen</th>
@@ -51,7 +51,7 @@
 	<h2>Mislukte reserveringen</h2>
 	
 	<c:if test="${not empty mandjeItemsMislukt}">
-		<table class="center">
+		<table>
 			<thead>
 				<tr class="even">
 					<th>Datum</th><th>Titel</th><th>Uitvoerders</th><th>Prijs</th><th>Plaatsen</th>

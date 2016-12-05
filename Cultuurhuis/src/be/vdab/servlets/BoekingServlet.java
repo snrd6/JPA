@@ -26,7 +26,7 @@ public class BoekingServlet extends HttpServlet
 	private static final String VIEW = "/WEB-INF/JSP/boeking.jsp";
 	private final transient MandjeDAO mandjeDAO=new MandjeDAO();
 	private final transient KlantDAO klantDAO=new KlantDAO();
-	
+	private final transient ReservatiesDAO reservatiesDAO=new ReservatiesDAO();
 	
 	
 	@Override
@@ -48,7 +48,7 @@ public class BoekingServlet extends HttpServlet
 				long voorstellingsnr = entry.getKey();
 				int plaatsen = entry.getValue();
 				
-				if(new ReservatiesDAO().boekReservaties(klantnr, voorstellingsnr, plaatsen))
+				if( reservatiesDAO.boekReservaties(klantnr, voorstellingsnr, plaatsen))
 				{
 					gelukt.put(entry.getKey(), entry.getValue());
 				}

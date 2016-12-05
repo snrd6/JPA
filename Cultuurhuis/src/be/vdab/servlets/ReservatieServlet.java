@@ -67,11 +67,12 @@ public class ReservatieServlet extends HttpServlet {
 
 		if (request.getParameter("voorstellingId") != null) {
 
-			voorstellingId = Long.parseLong(request.getParameter("voorstellingId"));
+		voorstellingId = Long.parseLong(request.getParameter("voorstellingId"));
 
 			voorstelling = voorstellingenDAO.findVoorstelling(voorstellingId);
 
 			int vrijePlaatsen = voorstelling.getVrijePlaatsen();
+	
 
 			try {
 

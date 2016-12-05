@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import be.vdab.entities.Klant;
 
 public class KlantDAO extends AbstractDAO {
-	private static final String FIND_KLANT_SQL = "select voornaam,familienaam,straat,huisnr,postcode,gemeente,paswoord from klanten where gebruikersnaam = ? ";
+	private static final String FIND_KLANT_SQL = "select id,voornaam,familienaam,straat,huisnr,postcode,gemeente,paswoord from klanten where gebruikersnaam = ? ";
 	private static final String NIEUWE_KLANT_SQL = "insert into klanten (voornaam, familienaam, straat, huisnr, postcode, gemeente, gebruikersnaam, paswoord) values(?,?,?,?,?,?,?,?)";
 	private static final String CHECK_GEBRUIKERSNAAM_SQL = "select gebruikersnaam from klanten where gebruikersnaam=? and paswoord=?";
 	private static final String SELECT_PASWOORD_SQL = "select paswoord from klanten where gebruikersnaam=?";
@@ -29,7 +29,7 @@ public class KlantDAO extends AbstractDAO {
 
 			try (ResultSet resultSet = statement.executeQuery()) {
 				if (resultSet.first()) {
-					klant = new Klant( resultSet.getString("voornaam"),
+					klant = new Klant( resultSet.getLong("id"),resultSet.getString("voornaam"),
 							resultSet.getString("familienaam"), resultSet.getString("straat"),
 							resultSet.getString("huisnr"), resultSet.getString("postcode"),
 							resultSet.getString("gemeente"), gebruikersnaam,

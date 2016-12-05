@@ -3,6 +3,7 @@ package be.vdab.servlets;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +22,7 @@ public class NieuweKlantServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW ="/WEB-INF/JSP/nieuweklant.jsp";
 	private static final String REDIRECT_URL = "/bevestiging.htm";
-
+	private final static Pattern REG_EXPR=Pattern.compile("^\\d{4}$");
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -71,7 +72,7 @@ public class NieuweKlantServlet extends HttpServlet
 		}
 		
 		String postcode=request.getParameter("postcode");
-		if(postcode==null||postcode.trim().isEmpty())
+		if(!REG_EXPR.matcher(postcode).matches()||postcode==null||postcode.trim().isEmpty())
 		{
 			fouten.put("postcode", "Postcode niet ingevuld");
 		}

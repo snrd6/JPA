@@ -38,7 +38,7 @@
 	<h2>${genre} voorstellingen</h2>
 
 	<c:if test="${not empty voorstellingen}">
-	    <table class="center">
+	    <table >
 			<thead>
 				<tr class="even">
 					<th>Datum</th><th>Titel</th><th>Uitvoerders</th><th>Prijs</th><th>Vrije plaatsen</th><th>Reserveren</th>

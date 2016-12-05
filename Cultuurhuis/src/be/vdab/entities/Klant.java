@@ -1,10 +1,11 @@
 package be.vdab.entities;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 public class Klant implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	private final static Pattern REG_EXPR=Pattern.compile("^\\d{4}$");
 	//variabelen
 	private long   klantId;	
 	private String voornaam;
@@ -25,12 +26,19 @@ public class Klant implements Serializable {
 		this.familienaam = familienaam;
 		this.straat = straat;
 		this.huisNr = huisNr;
-		this.postCode = postCode;
+		setPostCode(postCode);
 		this.gemeente = gemeente;
 		this.gebruikersnaam = gebruikersnaam;
 		this.paswoord = paswoord;
 	}
 
+	public Klant(Long klantId,String voornaam, String familienaam, String straat, String huisNr, String postCode,
+			String gemeente, String gebruikersnaam, String paswoord) {
+		this(voornaam, familienaam, straat, huisNr, postCode, gemeente, gebruikersnaam, paswoord);
+		this.klantId=klantId;
+		
+		
+	}
 
 	//getters
 	public long getKlantId() {
@@ -108,7 +116,7 @@ public class Klant implements Serializable {
 	}
 
 	public void setPostCode(String postCode) {
-		if((postCode == null) || postCode.isEmpty())
+		if(!REG_EXPR.matcher(postCode).matches()||(postCode == null) || postCode.isEmpty())
 		{
 			throw new IllegalArgumentException();
 		}
