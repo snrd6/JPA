@@ -74,7 +74,7 @@ public class NieuweKlantServlet extends HttpServlet
 		String postcode=request.getParameter("postcode");
 		if(!REG_EXPR.matcher(postcode).matches()||postcode==null||postcode.trim().isEmpty())
 		{
-			fouten.put("postcode", "Postcode niet ingevuld");
+			fouten.put("postcode", "Postcode niet ingevuld of is groter/kleiner dan 4 cijfers");
 		}
 		
 		String gemeente=request	.getParameter("gemeente");
