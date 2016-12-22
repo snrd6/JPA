@@ -1,5 +1,6 @@
 package be.vdab.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +22,8 @@ public interface FiliaalService {
 	long findAantalFilialen();
 	
 	List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks);
+	
+	List<Filiaal>findNietAfgeschreven();
+	
+	void afschrijven(Filiaal filiaal);
 }

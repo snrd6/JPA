@@ -13,6 +13,9 @@
 <c:choose>
 <c:when test="${not empty filiaal}">
 <h1>${filiaal.naam}</h1>
+<c:if test="${param.optimisticlockingexception}">
+<div class="fout">Filiaal werd door andere gebruiker als volgt gewijzigd:</div>
+</c:if>
 <dl><dt>Straat</dt><dd>${filiaal.adres.straat}</dd>
 <dt>Huisnr.</dt><dd>${filiaal.adres.huisNr}</dd>
 <dt>Postcode</dt><dd>${filiaal.adres.postcode}</dd>
@@ -22,8 +25,7 @@
 <dd>&euro; <spring:eval expression='filiaal.waardeGebouw'/></dd>
 <dt>Ingebruikname</dt>
 <dd><spring:eval expression='filiaal.inGebruikName'/></dd></dl>
-56
-SPRING 4.3
+
 
 <spring:url value='/filialen/{id}/verwijderen' var='verwijderURL'>
 <spring:param name='id' value='${filiaal.id}'/>
@@ -32,7 +34,14 @@ SPRING 4.3
 <input type='submit' value='Verwijderen'>
 </form>
 
+<spring:url value='/filialen/{id}/wijzigen' var='wijzigURL'>
+<spring:param name='id' value='${filiaal.id}'/>
+</spring:url>
+<form action='${wijzigURL}'>
+<input type='submit' value='Wijzigen'>
+</form>
 </c:when>
+
 <c:otherwise>
 <div class='fout'>Filiaal niet gevonden</div>
 </c:otherwise>

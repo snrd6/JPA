@@ -1,28 +1,24 @@
 package repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import be.vdab.entities.Filiaal;
-import be.vdab.valueobjects.PostcodeReeks;
 
-public interface FiliaalRepository {
+
+
+
+public interface FiliaalRepository extends JpaRepository<Filiaal , Long>{
+	
+List<Filiaal> findByAdresPostcodeBetweenOrderByNaam(int van,int tot);
+
+
+List<Filiaal>findByWaardeGebouwNot(BigDecimal waarde);
 
 	
 	
-	void create(Filiaal filiaal);
-	
-	Optional<Filiaal> read (long id);
-	
-	void update (Filiaal filiaal);
-	
-	void delete(long id);
-	
-	List<Filiaal> findAll();
-	
-	long findAantalFilialen();
-	
-	long findAantalWerknemers(long id);
-	
-	List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks);
+
 }

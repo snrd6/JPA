@@ -1,11 +1,17 @@
 package be.vdab.web;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
+import javax.enterprise.inject.New;
+import javax.validation.Valid;
 
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +32,7 @@ class FiliaalController {
 	private static final String TOEVOEGEN_VIEW="filialen/toevoegen";
 	
 	private static final String REDIRECT_URL_NA_TOEVOEGEN="redirect:/filialen";
-	private static final Logger LOGGER=Logger.getLogger(FiliaalController.class.getName());
+
 	
 	private static final String FILIAAL_VIEW="filialen/filiaal";
 	private final FiliaalService filiaalService;
@@ -41,12 +47,25 @@ class FiliaalController {
 	//HTML FORM tonen aan de gebruiker
 	private static final String PER_POSTCODE_VIEW="filialen/perpostcode";
 	
+	//wijzigknop
+	private static final String WIJZIGEN_VIEW = "filialen/wijzigen";
+	private static final String REDIRECT_URL_NA_WIJZIGEN = "redirect:/filialen";
 	
+	//aanpassing na version
+	private static final String REDIRECT_URL_NA_LOCKING_EXCEPTION ="redirect:/filialen/{id}?optimisticlockingexception=true";
+	
+	
+	//afschrijven waarde op 0 zetten
+	private static final String AFSCHRIJVEN_VIEW="filialen/afschrijven";
+	
+	//gesubmitte pagina verwerken
+	private static final String REDIRECT_NA_AFSCHRIJVEN = "redirect:/";
 	
 	FiliaalController(FiliaalService filiaalService){
 		this.filiaalService=filiaalService;
 	}
 	
+
 	//getMapping ---->
 	
 	
@@ -56,15 +75,17 @@ class FiliaalController {
 	}
 	
 	@GetMapping("toevoegen")
-	String createForm(){
-		return TOEVOEGEN_VIEW;
+	ModelAndView createForm(){
+		return new ModelAndView(TOEVOEGEN_VIEW,"filiaal",new Filiaal());
 		
 	}
 	
 	@GetMapping("{id}")
-	ModelAndView read(@PathVariable long id){
+	ModelAndView read(@PathVariable Filiaal filiaal){
 		ModelAndView modelAndView=new ModelAndView(FILIAAL_VIEW);
-		filiaalService.read(id).ifPresent(filiaal -> modelAndView.addObject(filiaal));
+		if(filiaal !=null){
+			modelAndView.addObject(filiaal);
+		}
 	
 	return modelAndView;
 	}
@@ -77,38 +98,54 @@ class FiliaalController {
 	@GetMapping("perpostcode")
 	ModelAndView findByPostcodeReeks(){
 		PostcodeReeks reeks =new PostcodeReeks();
-		reeks.setVanpostcode(1000);
-		reeks.setTotpostcode(9999);
+		//reeks.setVanpostcode(1000);
+		//reeks.setTotpostcode(9999);
 		return new ModelAndView(PER_POSTCODE_VIEW).addObject(reeks);
 	}
+	
 	@GetMapping(params={"vanpostcode","totpostcode"})
-	ModelAndView findByPostcodeReeks(PostcodeReeks reeks){
-		return new ModelAndView(PER_POSTCODE_VIEW,"filialen",filiaalService.findByPostcodeReeks(reeks));
+	ModelAndView findByPostcodeReeks(@Valid PostcodeReeks reeks,BindingResult bindingResult){
+		 ModelAndView modelAndView=new ModelAndView(PER_POSTCODE_VIEW);
+		 if(!bindingResult.hasErrors()){
+			 List <Filiaal> filialen=filiaalService.findByPostcodeReeks(reeks);
+			 if(filialen.isEmpty()){
+				 bindingResult.reject("geenFilialen");
+			 }
+			 else{
+				 modelAndView.addObject("filialen",filiaalService.findByPostcodeReeks(reeks));
+			 }
+			
+		 }
+		 return modelAndView;
 	}
 	
+	
+	@GetMapping("afschrijven")
+	ModelAndView AfschrijvenForm(){
+		return new ModelAndView(AFSCHRIJVEN_VIEW,"filialen",filiaalService.findNietAfgeschreven()).addObject(new AfschrijvenForm());
+	}
 	//Postmapping ---->
 	
 	@PostMapping
-	String create(){
-		LOGGER.info("filiaal record toevoegen aan database");
-		return REDIRECT_URL_NA_TOEVOEGEN;
+	String create(@Valid Filiaal filiaal, BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) {
+	return TOEVOEGEN_VIEW;
+	}
+	filiaalService.create(filiaal);
+	return REDIRECT_URL_NA_TOEVOEGEN;
 	}
 	
-	@PostMapping("{id}/verwijderen")
+	@PostMapping("{filiaal}/verwijderen")
 	//De @PostMapping method bevat een RedirectAttributes parameter.
 	//Je kan daarmee in de URL van de redirect
 	//a. request parameters toevoegen
 	//b. path variabelen invullen
-	String delete (@PathVariable long id,RedirectAttributes redirectAttributes){
-		Optional<Filiaal>optionalFiliaal=filiaalService.read(id);
-		//Je vindt het te verwijderen filiaal niet meer in de database.
-		//Je laat de browser dan een request maken naar de root van je website.
-		if(!optionalFiliaal.isPresent()){
-		return REDIRECT_URL_FILIAAL_NIET_GEVONDEN;
-		}
+	String delete (@PathVariable Filiaal filiaal,RedirectAttributes redirectAttributes){
+		
+		long id=filiaal.getId();
 		try{
 			filiaalService.delete(id);
-			redirectAttributes.addAttribute("id", id).addAttribute("naam", optionalFiliaal.get().getNaam()); 
+			redirectAttributes.addAttribute("id", id).addAttribute("naam", filiaal.getNaam()); 
 			return REDIRECT_URL_NA_VERWIJDEREN; 
 			} catch (FiliaalHeeftNogWerknemersException ex) {
 			redirectAttributes.addAttribute("id", id)
@@ -118,5 +155,50 @@ class FiliaalController {
 			
 		}
 	
+	
+	@InitBinder("postcodeReeks")
+	void initBinderPostcodeReeks(WebDataBinder binder){
+		binder.initDirectFieldAccess();
+	}
+	
+	@InitBinder("filiaal")
+	void initBinderFiliaal(WebDataBinder binder){
+		binder.initDirectFieldAccess();
+	}
+	
+	@GetMapping("{filiaal}/wijzigen")
+	ModelAndView updateForm(@PathVariable Filiaal filiaal) {
+
+	
+	return new ModelAndView(WIJZIGEN_VIEW).addObject(filiaal);
+	}
+	
+	@PostMapping("{id}/wijzigen")
+	String update(@Valid Filiaal filiaal, BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) {
+	return WIJZIGEN_VIEW;
+	}
+	
+	
+
+	try{
+		filiaalService.update(filiaal);
+		return REDIRECT_URL_NA_WIJZIGEN;
+	}catch (ObjectOptimisticLockingFailureException ex){
+		return REDIRECT_URL_NA_LOCKING_EXCEPTION;
+	}
+	}
+	
+	@PostMapping("afschrijven")
+	ModelAndView afschrijven(@Valid AfschrijvenForm afschrijvenForm,
+	BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) { // als de gebruiker geen filiaal selecteerde
+	return new ModelAndView(AFSCHRIJVEN_VIEW, "filialen",
+	filiaalService.findNietAfgeschreven());
+	}
+	filiaalService.afschrijven(afschrijvenForm.getFiliaal());
+	return new ModelAndView(REDIRECT_NA_AFSCHRIJVEN);
+	}
+
 	
 }

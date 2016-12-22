@@ -45,19 +45,16 @@ public class FiliaalControllerTest {
 	
 	@Test
 	public void readActiveertJuisteView(){
-		assertEquals("filialen/filiaal", filiaalController.read(1L).getViewName());
+		assertEquals("filialen/filiaal", filiaalController.read(filiaal).getViewName());
 	}
 	//Het filiaal in het request attribuut filiaal moet hetzelfde zijn als het filiaal dat de method
 	//read van de FiliaalService dummy teruggeeft bij een method oproep read(1L)
 	@Test
 	public void readMetBestaandeIDGeeftFiliaalTerug() {
-	assertSame(filiaal,filiaalController.read(1L).getModelMap().get("filiaal")); 
+	assertSame(filiaal,filiaalController.read(filiaal).getModelMap().get("filiaal")); 
 	}
 	
 	//Het filiaal in het request attribuut filiaal moet hetzelfde zijn als het filiaal dat de method
 	//read van de FiliaalService dummy teruggeeft bij een method oproep read(1L)
-	@Test
-	public void readMetOnbestaandeIDGeeftNullTerug() {
-	assertNull(filiaalController.read(666L).getModelMap().get("filiaal")); 
-	}
+
 }
